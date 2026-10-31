@@ -1,0 +1,18 @@
+# Build Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Journaux et fichiers temporaires
+*.log
+*.tmp
+
+# Captures d'écran personnelles (non destinées au dépôt)
+capture/
