@@ -103,7 +103,7 @@ public final class ResultVerifier {
         BigDecimal reference = ReferenceEvaluator.evaluate(p, x, ref);
         BigDecimal magnitude = ReferenceEvaluator.evaluate(p.withAbsoluteCoefficients(), x.abs(), ref);
         return compare(name, horner, reference, errorBound(2L * iterations(p), settings, magnitude),
-                "borne a priori 2·γ(2n)·Σ|aᵢ||x|^i");
+                "borne a priori 2·γ(2n)·Σ|a_i||x|^i");
     }
 
     /** P'(x) par Horner étendu comparé à la dérivée symbolique évaluée terme à terme. */
@@ -118,7 +118,7 @@ public final class ResultVerifier {
         BigDecimal reference = ReferenceEvaluator.evaluate(derivative, x, ref);
         BigDecimal magnitude = ReferenceEvaluator.evaluate(p.withAbsoluteCoefficients().derivative(), x.abs(), ref);
         return compare(name, horner, reference, errorBound(4L * iterations(p), settings, magnitude),
-                "borne a priori 2·γ(4n)·Σ i|aᵢ||x|^(i−1)");
+                "borne a priori 2·γ(4n)·Σ i|a_i||x|^(i−1)");
     }
 
     /** Le reste de la division par (x − r) comparé à P(r) calculé par l'oracle. */
@@ -135,7 +135,7 @@ public final class ResultVerifier {
         BigDecimal reference = ReferenceEvaluator.evaluate(p, r, ref);
         BigDecimal magnitude = ReferenceEvaluator.evaluate(p.withAbsoluteCoefficients(), r.abs(), ref);
         return compare(name, division.remainder(), reference, errorBound(2L * iterations(p), settings, magnitude),
-                "borne a priori 2·γ(2n)·Σ|aᵢ||r|^i");
+                "borne a priori 2·γ(2n)·Σ|a_i||r|^i");
     }
 
     /**
@@ -184,9 +184,9 @@ public final class ResultVerifier {
         checks.add(compare("P(0) = a₀", HornerEvaluator.evaluate(p, BigDecimal.ZERO, settings),
                 ReferenceEvaluator.valueAtZero(p), settings.isExact() ? BigDecimal.ZERO : toleranceAtOne,
                 "terme constant"));
-        checks.add(compare("P(1) = Σ aᵢ", HornerEvaluator.evaluate(p, BigDecimal.ONE, settings),
+        checks.add(compare("P(1) = Σ a_i", HornerEvaluator.evaluate(p, BigDecimal.ONE, settings),
                 ReferenceEvaluator.sumOfCoefficients(p), toleranceAtOne, "somme des coefficients"));
-        checks.add(compare("P(−1) = Σ (−1)^i aᵢ", HornerEvaluator.evaluate(p, BigDecimal.ONE.negate(), settings),
+        checks.add(compare("P(−1) = Σ (−1)^i a_i", HornerEvaluator.evaluate(p, BigDecimal.ONE.negate(), settings),
                 ReferenceEvaluator.alternatingSum(p), toleranceAtOne, "somme alternée des coefficients"));
         return checks;
     }
